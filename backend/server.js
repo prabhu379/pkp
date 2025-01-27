@@ -9,7 +9,7 @@ import parentRouter from './routes/parentRoute.js';
 dotenv.config(); // Load environment variables
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 connectDB();
 // Enable CORS
 app.use(cors());
@@ -20,6 +20,7 @@ app.use(express.json());
 // Routes
 app.use('/api/admin', adminRouter);
 app.use('/parent' , parentRouter)
+
 
 // Error handling
 app.use((err, req, res, next) => {

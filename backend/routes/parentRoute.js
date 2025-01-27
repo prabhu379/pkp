@@ -1,12 +1,15 @@
-import express from 'express'
-import { loginParent } from '../controllers/studentController.js'
-// import detailsOfParent from '../controllers/parentController.js';
-// import authParent from '../middlewares/authParent.js'
+import express from 'express';
+import { loginParent } from '../controllers/studentController.js';
 
-const parentRouter = express.Router()
+import detailsOfParent from '../controllers/detailsController.js';
+import authParent from '../middlewares/authParent.js';
 
-parentRouter.post('/login',loginParent)
-// parentRouter.get('/detailsofstudent',authParent,detailsOfParent)
+const parentRouter = express.Router();
 
+// Route for parent login
+parentRouter.post('/login', loginParent);
 
-export default parentRouter
+// Route for fetching details of parent
+parentRouter.get('/details',authParent, detailsOfParent);
+
+export default parentRouter;

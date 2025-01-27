@@ -4,6 +4,7 @@ import studentRoutes from './routes/studentRoutes.js';
 import errorHandler from './utils/errorHandler.js';
 
 import cors from 'cors'
+
 const app = express();
 
 

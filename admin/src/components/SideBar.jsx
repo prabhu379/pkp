@@ -38,6 +38,14 @@ const SideBar = () => {
                     <FontAwesomeIcon icon={faCalendarCheck} className="mr-3" />
                     Attendance
                   </li>
+                  <li onClick={()=> navigate('/dropout-prediction')} className="flex items-center p-3 mb-2 rounded-lg cursor-pointer hover:bg-blue-100 hover:text-blue-600">
+                    <FontAwesomeIcon icon={faCalendarCheck} className="mr-3" />
+                    Dropout Prediction 
+                  </li>
+                  <li onClick={()=> navigate('/social-media-predict')} className="flex items-center p-3 mb-2 rounded-lg cursor-pointer hover:bg-blue-100 hover:text-blue-600">
+                    <FontAwesomeIcon icon={faUsers} className="mr-3" />
+                    SocialMedia Predict
+                  </li>
                 </ul>
               </nav>
             </aside>

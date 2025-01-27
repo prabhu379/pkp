@@ -1,28 +1,29 @@
-
-
-// AttendanceManagement.jsx
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AttendanceManagement = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedGrade, setSelectedGrade] = useState('5th');
+  const [selectedDepartment, setSelectedDepartment] = useState('CSE');
+  const [selectedSection, setSelectedSection] = useState('A');
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const sampleData = [
-      { id: 1, name: 'Rahul S', attendance: Array(31).fill(false) },
-      { id: 2, name: 'Harry Potter', attendance: Array(31).fill(false) },
-      { id: 3, name: 'John C', attendance: Array(31).fill(false) },
+      { id: 1, name: 'Rahul S', department: 'CSE', section: 'A', attendance: Array(31).fill(false) },
+      { id: 2, name: 'Harry Potter', department: 'ECE', section: 'B', attendance: Array(31).fill(false) },
+      { id: 3, name: 'John C', department: 'CSE', section: 'A', attendance: Array(31).fill(false) },
     ];
     setAttendanceData(sampleData);
     setFilteredData(sampleData);
   }, []);
 
   const handleSearch = () => {
-    const filtered = attendanceData.filter(() => selectedGrade === '5th');
+    const filtered = attendanceData.filter(
+      (student) =>
+        student.department === selectedDepartment && student.section === selectedSection
+    );
     setFilteredData(filtered);
   };
 
@@ -102,15 +103,30 @@ const AttendanceManagement = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <label className="font-medium text-gray-700">Select Grade:</label>
+          <label className="font-medium text-gray-700">Select Department:</label>
           <select
-            value={selectedGrade}
-            onChange={(e) => setSelectedGrade(e.target.value)}
+            value={selectedDepartment}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
             className="border border-gray-300 rounded px-2 py-1"
           >
-            <option value="5th">CSE A</option>
-            <option value="6th">CSE B</option>
-            <option value="7th">CSE C</option>
+            <option value="CSE">CSE</option>
+            <option value="ECE">ECE</option>
+            <option value="CS">CS</option>
+            <option value="AIDS">AIDS</option>
+          </select>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <label className="font-medium text-gray-700">Select Section:</label>
+          <select
+            value={selectedSection}
+            onChange={(e) => setSelectedSection(e.target.value)}
+            className="border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
           </select>
         </div>
 
@@ -128,5 +144,3 @@ const AttendanceManagement = () => {
 };
 
 export default AttendanceManagement;
-
-// Attendance.jsx
