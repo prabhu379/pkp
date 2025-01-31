@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 # Define the model path
-model_path = os.path.abspath("backend/python_services/dropout_model.pkl")
+model_path = os.path.abspath("python_services/dropout_model.pkl")
 
 # Load the model with error handling
 try:

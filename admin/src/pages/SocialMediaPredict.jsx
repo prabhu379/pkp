@@ -14,7 +14,8 @@ const SocialMediaPredict = () => {
       const response = await axios.get(
         "http://localhost:4000/api/admin/predict-dropout-social-media"
       );
-      setPredictions(response.data.predictions);
+      console.log("API Response:", response.data); // Debugging
+      setPredictions(response.data.predictions || []);
     } catch (err) {
       setError("Failed to fetch predictions. Please try again later.");
     } finally {
@@ -26,6 +27,27 @@ const SocialMediaPredict = () => {
   useEffect(() => {
     fetchPredictions();
   }, []);
+
+  // Function to render predictions
+  const renderPredictions = () => {
+    return predictions.map((prediction, index) => (
+      <div key={index} className="border rounded-lg p-4 bg-gray-50 shadow-sm">
+        <p className="font-medium text-gray-700">
+          Name: {prediction.studentDetails?.name || "Unknown"}
+        </p>
+        <p className="text-gray-600">
+          Roll No: {prediction.studentDetails?.student_id || "N/A"}
+        </p>
+        <p
+          className={`font-bold ${
+            Number(prediction.prediction) === 1 ? "text-red-500" : "text-green-500"
+          }`}
+        >
+          Prediction: {Number(prediction.prediction) === 1 ? "Risk to Dropout" : "Not at a Risk to Dropout"}
+        </p>
+      </div>
+    ));
+  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -45,33 +67,7 @@ const SocialMediaPredict = () => {
           {loading && <p className="text-gray-500">Loading predictions...</p>}
           {error && <p className="text-red-500">{error}</p>}
           {!loading && !error && (
-            <div className="space-y-4">
-              {predictions.map((prediction, index) => (
-                <div
-                  key={index}
-                  className="border rounded-lg p-4 bg-gray-50 shadow-sm"
-                >
-                  <p className="font-medium text-gray-700">
-                    Name: {prediction.studentDetails.name}
-                  </p>
-                  <p className="text-gray-600">
-                    Roll No: {prediction.studentDetails.student_id}
-                  </p>
-                  <p
-                    className={`font-bold ${
-                      prediction.prediction === "1"
-                        ? "text-red-500"
-                        : "text-green-500"
-                    }`}
-                  >
-                    Prediction:{" "}
-                    {prediction.prediction === "1"
-                      ? "Likely to Dropout"
-                      : "Not at a Risk to Dropout"}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <div className="space-y-4">{renderPredictions()}</div>
           )}
         </div>
       </div>

@@ -46,6 +46,12 @@ const SideBar = () => {
                     <FontAwesomeIcon icon={faUsers} className="mr-3" />
                     SocialMedia Predict
                   </li>
+
+                  <li onClick={()=> navigate('/student-predict')} className="flex items-center p-3 mb-2 rounded-lg cursor-pointer hover:bg-blue-100 hover:text-blue-600">
+                    <FontAwesomeIcon icon={faUsers} className="mr-3" />
+                   Academic Predict 
+                  </li>
+
                 </ul>
               </nav>
             </aside>

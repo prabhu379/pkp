@@ -6,11 +6,13 @@ import { addMarks } from '../controllers/MarksController.js';
 import { getStudentDetails } from '../controllers/StudentDetailsController.js';
 import { predictDropout } from '../controllers/dropoutController.js';
 import { predictDropoutBasedOnSocialMedia } from '../controllers/socialmediaController.js';
+import { getAllStudentsPrediction } from '../controllers/academicController.js';
 
 const adminRouter = express.Router();
 
-// Public route
+// Public routea
 adminRouter.post('/login', loginAdmin);
+adminRouter.get("/predict-academic", getAllStudentsPrediction);
 
 // Protected route
 adminRouter.get('/protected', authAdmin, (req, res) => {

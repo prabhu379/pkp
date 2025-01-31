@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AdminContext } from './context/AdminContext';
 import DropoutPrediction from './components/DroupoutPrediction';
 import SocialMediaPredict from './pages/SocialMediaPredict';
+import Academic from './pages/Academic';
+import StudentPrediction from './pages/StudentPrediction';
 
 const App = () => {
   const { aToken } = useContext(AdminContext);
@@ -32,6 +34,8 @@ const App = () => {
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/dropout-prediction" element={<DropoutPrediction />} />
             <Route path='/social-media-predict' element={<SocialMediaPredict /> } />
+            <Route path='/academic-predict' element={<Academic /> } />
+            <Route path='/student-predict' element={<StudentPrediction /> } />
             <Route path="*" element={<Navigate to="/adminPanel" />} />
           </Routes>
         </div>
