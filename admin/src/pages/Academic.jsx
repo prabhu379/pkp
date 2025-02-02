@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Academic = () => {
-  const [students, setStudents] = useState([]); // Initial state as an empty array
+  const [students, setStudents] = useState(null); // Initial state as an empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -10,14 +10,14 @@ const Academic = () => {
     // Fetch predictions for all students from the backend
     const fetchStudentPredictions = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/admin/predict-academic");
+        const response = await axios.get("http://localhost:4000/predict");
         
         // Ensure the response data is an array
-        if (Array.isArray(response.data)) {
+       
           setStudents(response.data); // Set the response data if it's an array
-        } else {
-          setError("Invalid data format received from the server.");
-        }
+          console.log(students) ; 
+         
+       
 
         setLoading(false);  // Turn off loading
       } catch (err) {
@@ -48,7 +48,7 @@ const Academic = () => {
           {students.length > 0 ? (
             students.map((student) => (
               <tr key={student.studentId} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-2">{student.studentId}</td>
+                <td className="px-4 py-2">{student.regno}</td>
                 <td className="px-4 py-2">{student.name}</td>
                 <td className="px-4 py-2">
                   {student.dropoutRisk === "Error: Missing data for prediction"

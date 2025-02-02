@@ -3,7 +3,7 @@ import axios from "axios";
 
 function StudentPrediction() {
   const [regno, setRegno] = useState("");
-  const [studentData, setStudentData] = useState(null);
+  const [studentData, setStudentData] = useState([]);
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -16,9 +16,11 @@ function StudentPrediction() {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/student-details", { regno });
+      const response = await axios.post("http://localhost:4000/predict", { regno });
       setStudentData(response.data);
       setPrediction(null); // Reset prediction if new student data is fetched
+      console.log(response.data)
+      console.log(studentData);
     } catch (err) {
       setError("No data found for this Registration Number.");
       setStudentData(null);
@@ -26,6 +28,8 @@ function StudentPrediction() {
     }
     setLoading(false);
   };
+
+  
 
   const fetchPrediction = async () => {
     if (!studentData) {
@@ -69,9 +73,9 @@ function StudentPrediction() {
       {studentData && (
         <div className="p-4 bg-white shadow-md rounded-lg w-1/2">
           <h2 className="text-lg font-semibold">Student Details</h2>
-          <p><strong>Reg No:</strong> {studentData.regno}</p>
-          <p><strong>Course:</strong> {studentData.course}</p>
-          <p><strong>Age at Enrollment:</strong> {studentData.ageAtEnrollment}</p>
+          <p><strong>Reg No:</strong> {studentData.Data.regno}</p>
+          <p><strong>Course:</strong> {studentData.Data.course}</p>
+          <p><strong>Age at Enrollment:</strong> {studentData.Data.ageAtEnrollment}</p>
           <p><strong>Scholarship Holder:</strong> {studentData.scholarshipHolder ? "Yes" : "No"}</p>
 
           <button
@@ -83,12 +87,19 @@ function StudentPrediction() {
         </div>
       )}
 
-      {prediction && (
-        <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-lg">
-          <h3 className="text-lg font-semibold">Predicted Outcome:</h3>
-          <p>{prediction}</p>
-        </div>
-      )}
+{prediction && (
+  <div
+    className={`mt-4 p-4 rounded-lg ${
+      prediction.toLowerCase() === "dropout"
+        ? "bg-red-100 text-red-800"
+        : "bg-green-100 text-green-800"
+    }`}
+  >
+    <h3 className="text-lg font-semibold">Predicted Outcome:</h3>
+    <p>{prediction}</p>
+  </div>
+)}
+
     </div>
   );
 }

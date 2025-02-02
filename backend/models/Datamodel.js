@@ -1,5 +1,5 @@
+import mongoose from "mongoose";
 
-// Define Mongoose schema and model
 const DataSchema = new mongoose.Schema({
     regno: Number,
     maritalStatus: Number,
@@ -39,4 +39,6 @@ const DataSchema = new mongoose.Schema({
     target: String,
   });
   
-  const DataModel = mongoose.model('Data', DataSchema);
+  const Datamodel = mongoose.model('Data', DataSchema);
+  
+  export default Datamodel;
